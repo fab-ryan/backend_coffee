@@ -8,23 +8,28 @@ import {
 } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
-
+import { i18nValidationMessage } from 'nestjs-i18n';
+import { I18nTranslations } from '@generated/i18n.generated';
 export class CreateUserDto {
   @ApiProperty({
     example: 'John Doe',
     description: 'The name of the full User',
   })
   @IsString()
-  @IsNotEmpty()
-  readonly name: string;
+  @IsNotEmpty({
+    message: i18nValidationMessage<I18nTranslations>(
+      'validation.IS_NOT_EMPTY',
+      { name: 'name' },
+    ),
+  })
+  name: string;
 
   @ApiProperty({
     example: '@john',
     description: 'The username of the User',
   })
-  @IsString()
-  @IsNotEmpty()
-  readonly username: string;
+  @IsOptional()
+  username: string;
 
   @ApiProperty({
     example: 'user@example.com',
@@ -32,7 +37,7 @@ export class CreateUserDto {
   })
   @IsEmail()
   @IsNotEmpty()
-  readonly email: string;
+  email: string;
 
   @ApiProperty({
     example: '0780000000',
@@ -42,7 +47,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   @parseToRwandanNumber
   @IsRwandanPhoneNumber()
-  readonly phone: string;
+  phone: string;
 
   @ApiProperty({
     example: 'password',
@@ -50,7 +55,7 @@ export class CreateUserDto {
   })
   @IsString()
   @IsNotEmpty()
-  readonly password: string;
+  password: string;
 
   @ApiProperty({
     example: 'true',
@@ -58,5 +63,5 @@ export class CreateUserDto {
   })
   @IsBoolean()
   @IsOptional()
-  readonly status: boolean;
+  status: boolean;
 }

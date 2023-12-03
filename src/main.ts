@@ -6,11 +6,20 @@ import config from '@config/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger, SwaggerConfig, validationPipeOptions } from '@utils';
 import { I18nMiddleware } from 'nestjs-i18n';
+import * as dotenv from 'dotenv';
 
 async function bootstrap() {
+  dotenv.config();
   const app = await NestFactory.create(AppModule, {
     logger: Logger.logger,
+    cors: {
+      origin: '*',
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+      preflightContinue: false,
+      optionsSuccessStatus: 204,
+    },
   });
+  app.enableCors();
   const validationPipe = new ValidationPipe(validationPipeOptions);
   app.useGlobalPipes(validationPipe);
   app.use(

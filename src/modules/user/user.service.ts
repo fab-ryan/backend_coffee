@@ -9,10 +9,18 @@ import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ResponseService } from '@utils/response/response.service';
-import { formatUsername } from '@utils';
+import {
+  AssociativeArray,
+  filterQueryBuilderFromRequest,
+  formatUsername,
+  PaginateHelper,
+} from '@utils';
 import { I18nService } from 'nestjs-i18n';
 import { I18nTranslations } from '@generated/i18n.generated';
 
+import * as bcrypt from 'bcrypt';
+
+import config from '@config/config';
 @Injectable()
 export class UserService {
   constructor(
@@ -20,13 +28,14 @@ export class UserService {
     private userRepository: Repository<User>,
     private readonly responseService: ResponseService,
     private readonly i18n: I18nService<I18nTranslations>,
+    private readonly userPaginate: PaginateHelper<User>,
   ) {}
 
   async create(createUserDto: CreateUserDto, lang: string) {
     try {
       const username = formatUsername(createUserDto.username);
 
-      const { email, name } = createUserDto;
+      const { email, name, password, phone } = createUserDto;
 
       const checkUser = await this.userRepository.findOne({
         where: { username },
@@ -54,21 +63,61 @@ export class UserService {
           message: this.i18n.translate('response.USER_EMAIL_EXITS', { lang }),
         });
       }
-      const user = this.userRepository.create(createUserDto);
+
+      const hashedPassword = await bcrypt.hash(
+        password,
+        config().jwt_salt_round,
+      );
+      const user = this.userRepository.create({
+        username,
+        email,
+        name,
+        phone,
+        password: hashedPassword,
+      });
       const result = await this.userRepository.save(user);
+      result.password;
       return this.responseService.Response({
         success: true,
         statusCode: 201,
         data: result,
-        message: 'User created successfully',
+        message: this.i18n.translate('response.USER_CREATED', { lang }),
       });
     } catch (error) {
       return new BadRequestException(error);
     }
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findAll(filters?: AssociativeArray) {
+    try {
+      const q = this.userRepository
+        .createQueryBuilder('users')
+        .select([
+          'users.id',
+          'users.name',
+          'users.username',
+          'users.email',
+          'users.phone',
+          'users.status',
+          'users.created_at',
+          'users.deleted_at',
+        ])
+        .orderBy('users.created_at', 'DESC');
+
+      filterQueryBuilderFromRequest(q, filters);
+
+      const userPaginate = await this.userPaginate.run(q);
+      return this.responseService.Response({
+        data: userPaginate,
+        message: this.i18n.translate('response.USER_LIST'),
+      });
+    } catch (e) {
+      return this.responseService.Response({
+        message: e.message,
+        statusCode: 400,
+        success: false,
+      });
+    }
   }
 
   findOne(id: string) {

@@ -6,13 +6,18 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
+  DefaultValuePipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-
+import { ApiTags } from '@nestjs/swagger';
 import { I18nLang } from 'nestjs-i18n';
-
+import { AssociativeArray } from '@utils';
+import { filter } from 'rxjs';
+@ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -23,8 +28,13 @@ export class UserController {
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  findAll(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
+    @Query() filters: AssociativeArray,
+  ) {
+    return this.userService.findAll(filters);
   }
 
   @Get(':id')

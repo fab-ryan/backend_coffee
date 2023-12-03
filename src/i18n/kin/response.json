@@ -6,5 +6,6 @@
   "USER_INVALID": "Invalid username or password",
   "USER_NOT_ACTIVE": "User is not active",
 
-  "USER_CREATED": "Account yawe yafunguwe neza"
+  "USER_CREATED": "Account yawe yafunguwe neza",
+  "USER_LIST": "Abantu bose biyandikishije "
 }

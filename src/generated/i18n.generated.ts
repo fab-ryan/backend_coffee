@@ -9,6 +9,12 @@ export type I18nTranslations = {
         "USER_INVALID": string;
         "USER_NOT_ACTIVE": string;
         "USER_CREATED": string;
+        "USER_LIST": string;
+    };
+    "validation": {
+        "IS_NOT_EMPTY": string;
+        "IS_EMAIL": string;
+        "IS_STRING": string;
     };
 };
 export type I18nPath = Path<I18nTranslations>;

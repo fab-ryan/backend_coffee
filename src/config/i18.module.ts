@@ -3,6 +3,8 @@ import {
   AcceptLanguageResolver,
   QueryResolver,
   HeaderResolver,
+  CookieResolver,
+  I18nJsonLoader,
 } from 'nestjs-i18n';
 import * as path from 'path';
 
@@ -18,8 +20,6 @@ import { Module } from '@nestjs/common';
         return {
           global: true,
           fallbackLanguage: configService.getOrThrow('FALLBACK_LANGUAGE'),
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          formatter: (template: string, ...args: any[]) => template,
           loaderOptions: {
             path: path.join(__dirname, '../i18n/'),
             watch: true,
@@ -32,9 +32,13 @@ import { Module } from '@nestjs/common';
         };
       },
       resolvers: [
-        { use: QueryResolver, options: ['lang'] },
-        AcceptLanguageResolver,
+        {
+          use: QueryResolver,
+          options: ['lang'],
+        },
         new HeaderResolver(['x-lang']),
+        new CookieResolver(),
+        AcceptLanguageResolver,
       ],
       inject: [ConfigService],
     }),
