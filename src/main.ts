@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as compression from 'compression';
 import { ValidationPipe } from '@nestjs/common';
-import config from '@/config/config';
+import config from '@config/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger, SwaggerConfig, validationPipeOptions } from '@utils';
 
@@ -10,7 +10,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: Logger.logger,
   });
-  app.useGlobalPipes(new ValidationPipe(validationPipeOptions));
+  const validationPipe = new ValidationPipe(validationPipeOptions);
+  app.useGlobalPipes(validationPipe);
   app.use(
     compression({
       level: 9,
