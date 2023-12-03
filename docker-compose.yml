@@ -1,0 +1,59 @@
+version: '3.5'
+services:
+  db:
+    image: postgres:12.1
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432
+      - 5433:5433
+    
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: events-docker-container
+    environment:
+      - PORT=${PORT}
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    tty: true
+    stdin_open: true
+    command: bash -c "npm install && npm run start:dev"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: nest-pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=pgadmin4
+    ports:
+      - '5050:80'
+    depends_on:
+      - db
+
+networks:
+  default:
+    external:
+      name: events-network
+      driver: bridge
+      ipam:
+        driver: default
+        config:
+        - subnet: 192.168.127.12/
+          gateway:
+          - 192.168.127.12
+      ports:
+        - "4000:5000"
+    driver: bridge
+
+  build:
