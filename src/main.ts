@@ -5,6 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 import config from '@config/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger, SwaggerConfig, validationPipeOptions } from '@utils';
+import { I18nMiddleware } from 'nestjs-i18n';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -19,6 +20,7 @@ async function bootstrap() {
       memLevel: 9,
     }),
   );
+  app.use(I18nMiddleware);
   app.setGlobalPrefix(config().prefix);
 
   const swaggerConfig = new DocumentBuilder()

@@ -1,0 +1,10 @@
+{
+  "USERNAME_EXITS": "Username yawe yakoreshejwe nundi",
+  "USER_EMAIL_EXITS": "Email yawe yarakoreshejwe nundi",
+
+  "USER_NOT_FOUND": "User not found",
+  "USER_INVALID": "Invalid username or password",
+  "USER_NOT_ACTIVE": "User is not active",
+
+  "USER_CREATED": "Account yawe yafunguwe neza"
+}

@@ -1,0 +1,9 @@
+{
+  "USERNAME_EXITS": "Username already exists",
+  "USER_EMAIL_EXITS": "Email already exists",
+  "USER_NOT_FOUND": "User not found",
+  "USER_INVALID": "Invalid username or password",
+  "USER_NOT_ACTIVE": "User is not active",
+
+  "USER_CREATED": "User created successfully"
+}
