@@ -1,12 +1,15 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as compression from 'compression';
-import { ValidationPipe } from '@nestjs/common';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import config from '@config/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger, SwaggerConfig, validationPipeOptions } from '@utils';
 import { I18nMiddleware } from 'nestjs-i18n';
 import * as dotenv from 'dotenv';
+import helmet from 'helmet';
+import { QueryFailedFilter } from '@filters/query-fail.filter';
+import { HttpExceptionFilter } from '@filters/bad-request.filter';
 
 async function bootstrap() {
   dotenv.config();
@@ -30,7 +33,15 @@ async function bootstrap() {
     }),
   );
   app.use(I18nMiddleware);
+  app.use(helmet());
   app.setGlobalPrefix(config().prefix);
+
+  const reflector = app.get(Reflector);
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
+  app.useGlobalFilters(
+    new QueryFailedFilter(reflector),
+    new HttpExceptionFilter(reflector),
+  );
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle(SwaggerConfig.title)

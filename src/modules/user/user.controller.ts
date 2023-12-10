@@ -1,4 +1,10 @@
 import {
+  ApiBearerAuth,
+  ApiTags,
+  ApiResponse,
+  ApiBadRequestResponse,
+} from '@nestjs/swagger';
+import {
   Controller,
   Get,
   Post,
@@ -10,11 +16,12 @@ import {
   DefaultValuePipe,
   ParseIntPipe,
   UseGuards,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { I18nLang } from 'nestjs-i18n';
 import { AssociativeArray } from '@utils';
 
@@ -36,6 +43,23 @@ export class UserController {
   @Get()
   @Roles(Role.ADMIN)
   @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiBadRequestResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Bad request',
+    type: [CreateUserDto],
+    schema: {
+      example: {},
+    },
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'The found record',
+    type: [CreateUserDto],
+    schema: {
+      example: {},
+    },
+  })
   findAll(
     @I18nLang() lang: string,
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
@@ -50,6 +74,14 @@ export class UserController {
   @Get(':id')
   @Roles(Role.ADMIN)
   @UseGuards(AuthGuard)
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'The found record',
+    type: CreateUserDto,
+    schema: {
+      example: {},
+    },
+  })
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
@@ -58,6 +90,14 @@ export class UserController {
   @Patch(':id')
   @Roles(Role.ADMIN)
   @UseGuards(AuthGuard)
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'The found record',
+    type: CreateUserDto,
+    schema: {
+      example: {},
+    },
+  })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);
   }
@@ -65,6 +105,14 @@ export class UserController {
   @Delete(':id')
   @Roles(Role.ADMIN)
   @UseGuards(AuthGuard)
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'The found record',
+    type: CreateUserDto,
+    schema: {
+      example: {},
+    },
+  })
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
   }

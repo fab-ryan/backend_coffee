@@ -8,6 +8,7 @@ import { User } from '@modules/user/entities/user.entity';
 import { PassportModule } from '@nestjs/passport';
 import { UserService } from '@modules/user/user.service';
 import { PaginateHelper, ResponseService } from '@utils';
+import { LocalStrategy } from '@guards/local.auth.guard';
 
 @Module({
   imports: [
@@ -16,6 +17,12 @@ import { PaginateHelper, ResponseService } from '@utils';
     TypeOrmModule.forFeature([User]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UserService, ResponseService, PaginateHelper],
+  providers: [
+    AuthService,
+    UserService,
+    ResponseService,
+    PaginateHelper,
+    LocalStrategy,
+  ],
 })
 export class AuthModule {}
