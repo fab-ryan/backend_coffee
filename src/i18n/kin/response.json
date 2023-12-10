@@ -1,0 +1,21 @@
+{
+  "USERNAME_EXITS": "Username yawe yakoreshejwe nundi",
+  "USER_EMAIL_EXITS": "Email yawe yarakoreshejwe nundi",
+
+  "USER_NOT_FOUND": "User not found",
+  "USER_INVALID": "Invalid username or password",
+  "USER_NOT_ACTIVE": "User is not active",
+
+  "USER_CREATED": "Account yawe yafunguwe neza",
+  "USER_LIST": "Abantu bose biyandikishije ",
+  "ROLE_NAME_EXIST": "this role {name} is already exist",
+  "ROLE_CREATE_SUCCESS": "this role  is created successfully",
+  "ROLE_GET_ALL_SUCCESS": "list all roles",
+  "ROLE_NOT_FOUND": "this {name} role is not found",
+  "ROLE_GET_SUCCESS": "this role details",
+  "ROLE_UPDATE_SUCCESS": "this role is updated successfully",
+  "ROLE_DELETE_SUCCESS": "this role is deleted successfully",
+  "INVALID_EMAIL_OR_PASSWORD": "Invalid email or password",
+  "LOGIN_SUCCESSFULLY": "Login successfully",
+  "LOGOUT_SUCCESSFULLY": "Logout successfully"
+}

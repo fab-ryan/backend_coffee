@@ -19,6 +19,10 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@*": ["./src/*"]
-    }
-  }
+    },
+    
+  },
+  "exclude": [
+    "./src/generated/i18n.generated.ts"
+  ]
 }
