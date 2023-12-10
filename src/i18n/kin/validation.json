@@ -1,6 +1,6 @@
 {
-    "IS_NOT_EMPTY": "Feild ntigomba kuba ari ubusa",
-    "IS_EMAIL": "Email igomba kuba ari formatted neza",
-    "IS_STRING": "Feild igomba kuba ari ijambo"
-  }
-  
+  "IS_NOT_EMPTY": "Feild ntigomba kuba ari ubusa",
+  "IS_EMAIL": "Email igomba kuba ari formatted neza",
+  "IS_STRING": "Feild igomba kuba ari ijambo",
+  "ROLE_NAME": "role name should be a string"
+}

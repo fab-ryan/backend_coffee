@@ -32,7 +32,7 @@ export class ResponseService {
       method: method,
       requestId: result.requestId,
       message: result.message,
-      timestamp: Date.now(),
+      timestamp: new Date(Date.now()).toISOString(),
     };
     return response;
   }

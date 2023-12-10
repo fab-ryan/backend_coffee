@@ -6,6 +6,7 @@ import {
   DeleteDateColumn,
 } from 'typeorm';
 import { uuid } from '@utils';
+import { Role } from '@enums/role.enum';
 
 @Entity('users')
 export class User {
@@ -33,6 +34,9 @@ export class User {
 
   @Column({ nullable: false, default: true })
   status: boolean;
+
+  @Column({ nullable: false, default: Role.USER })
+  role: string;
 
   @CreateDateColumn({ type: 'timestamp', nullable: false })
   created_at: Date;

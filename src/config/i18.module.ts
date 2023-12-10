@@ -4,7 +4,6 @@ import {
   QueryResolver,
   HeaderResolver,
   CookieResolver,
-  I18nJsonLoader,
 } from 'nestjs-i18n';
 import * as path from 'path';
 

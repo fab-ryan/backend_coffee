@@ -37,6 +37,11 @@ async function bootstrap() {
     .setDescription(SwaggerConfig.description)
     .setVersion(SwaggerConfig.version)
     .setTermsOfService(SwaggerConfig.termsOfService)
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+    })
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);

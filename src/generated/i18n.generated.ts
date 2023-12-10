@@ -10,11 +10,23 @@ export type I18nTranslations = {
         "USER_NOT_ACTIVE": string;
         "USER_CREATED": string;
         "USER_LIST": string;
+        "ROLE_CREATE_SUCCESS": string;
+        "ROLE_GET_ALL_SUCCESS": string;
+        "ROLE_NOT_FOUND": string;
+        "ROLE_GET_SUCCESS": string;
+        "ROLE_UPDATE_SUCCESS": string;
+        "ROLE_DELETE_SUCCESS": string;
+        "INVALID_EMAIL_OR_PASSWORD": string;
+        "LOGIN_SUCCESSFULLY": string;
+        "LOGOUT_SUCCESSFULLY": string;
+        "ROLE_NAME_EXIST": string;
     };
     "validation": {
         "IS_NOT_EMPTY": string;
         "IS_EMAIL": string;
         "IS_STRING": string;
+        "ROLE_NAME": string;
+        "ROLE_NAME_EXIST": string;
     };
 };
 export type I18nPath = Path<I18nTranslations>;

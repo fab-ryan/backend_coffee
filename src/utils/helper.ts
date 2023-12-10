@@ -58,3 +58,7 @@ export const url = (link: string) => {
   }
   return base + '/' + link;
 };
+
+export const genereteSlug = (name: string) => {
+  return name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+};

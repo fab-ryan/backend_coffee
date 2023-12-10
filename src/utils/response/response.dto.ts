@@ -45,5 +45,5 @@ export class ResponseDto {
   @ApiProperty({ required: true })
   @IsOptional()
   @IsNumber()
-  timestamp: number;
+  timestamp: string;
 }

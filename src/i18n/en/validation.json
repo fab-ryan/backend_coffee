@@ -1,5 +1,7 @@
 {
   "IS_NOT_EMPTY": "field should not be empty",
   "IS_EMAIL": "email should be a valid email address",
-  "IS_STRING": "field should be a string"
+  "IS_STRING": "field should be a string",
+  "ROLE_NAME": "role name should be a string",
+  "ROLE_NAME_EXIST": "this role {name} is already exist"
 }

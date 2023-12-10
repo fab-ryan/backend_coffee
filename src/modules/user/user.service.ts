@@ -88,7 +88,7 @@ export class UserService {
     }
   }
 
-  async findAll(filters?: AssociativeArray) {
+  async findAll(filters?: AssociativeArray, lang?: string) {
     try {
       const q = this.userRepository
         .createQueryBuilder('users')
@@ -109,7 +109,7 @@ export class UserService {
       const userPaginate = await this.userPaginate.run(q);
       return this.responseService.Response({
         data: userPaginate,
-        message: this.i18n.translate('response.USER_LIST'),
+        message: this.i18n.translate('response.USER_LIST', { lang }),
       });
     } catch (e) {
       return this.responseService.Response({
@@ -117,6 +117,25 @@ export class UserService {
         statusCode: 400,
         success: false,
       });
+    }
+  }
+
+  async findUserByEmail(email: string): Promise<User> {
+    try {
+      const queryBuilder = this.userRepository.createQueryBuilder('users');
+
+      const user = await queryBuilder
+        .where('users.email = :email', { email })
+        .getOne();
+
+      if (!user) {
+        throw new NotFoundException(
+          this.i18n.translate('response.USER_NOT_FOUND', { lang: 'en' }),
+        );
+      }
+      return user;
+    } catch (e) {
+      throw new NotFoundException(e.message);
     }
   }
 
