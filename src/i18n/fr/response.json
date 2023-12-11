@@ -17,4 +17,12 @@
   "INVALID_EMAIL_OR_PASSWORD": "Invalid email or password",
   "LOGIN_SUCCESSFULLY": "Login successfully",
   "LOGOUT_SUCCESSFULLY": "Logout successfully"
+  ,
+
+  "CATEGORY_EXIST": "Category already exists",
+  "CATEGORY_CREATE": "Category created successfully",
+  "CATEGORY_DELETE": "Category deleted successfully",
+  "CATEGORY_DETAILS": "Category details",
+  "CATEGORY_UPDATE": "Category updated successfully",
+  "CATEGORY_NOT_FOUND": "Category not found"
 }
