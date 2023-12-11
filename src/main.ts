@@ -8,8 +8,7 @@ import { Logger, SwaggerConfig, validationPipeOptions } from '@utils';
 import { I18nMiddleware } from 'nestjs-i18n';
 import * as dotenv from 'dotenv';
 import helmet from 'helmet';
-import { QueryFailedFilter } from '@filters/query-fail.filter';
-import { HttpExceptionFilter } from '@filters/bad-request.filter';
+import { QueryFailedFilter, HttpExceptionFilter } from '@filters';
 
 async function bootstrap() {
   dotenv.config();

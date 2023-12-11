@@ -24,5 +24,6 @@ import { LocalStrategy } from '@guards/local.auth.guard';
     PaginateHelper,
     LocalStrategy,
   ],
+  exports: [AuthService, PassportModule.register({ defaultStrategy: 'jwt' })],
 })
 export class AuthModule {}

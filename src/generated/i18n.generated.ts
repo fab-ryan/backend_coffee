@@ -19,6 +19,12 @@ export type I18nTranslations = {
         "INVALID_EMAIL_OR_PASSWORD": string;
         "LOGIN_SUCCESSFULLY": string;
         "LOGOUT_SUCCESSFULLY": string;
+        "CATEGORY_EXIST": string;
+        "CATEGORY_CREATE": string;
+        "CATEGORY_DELETE": string;
+        "CATEGORY_DETAILS": string;
+        "CATEGORY_UPDATE": string;
+        "CATEGORY_NOT_FOUND": string;
         "ROLE_NAME_EXIST": string;
     };
     "validation": {
