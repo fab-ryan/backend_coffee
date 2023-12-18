@@ -27,7 +27,7 @@ import { AssociativeArray } from '@utils';
 
 import { Role } from '@enums/role.enum';
 import { Roles } from '@decorators/roles.decorator';
-import { AuthGuard } from '@guards/auth.guard';
+import { AuthGuard } from '@guards';
 
 @ApiTags('User')
 @Controller('user')

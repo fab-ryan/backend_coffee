@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { LoginDto } from './dto/create-auth.dto';
+import { GeneratePassword, LoginDto } from './dto/create-auth.dto';
 
 import { ResponseService } from '@utils';
 import { UserService } from '@modules/user/user.service';
@@ -19,6 +19,7 @@ export class AuthService {
 
   async validateUser(loginDto: LoginDto) {
     const user = await this.userService.findUserByEmail(loginDto.email);
+
     if (!user) {
       return this.responseService.Response({
         success: false,
@@ -28,8 +29,7 @@ export class AuthService {
         ),
       });
     }
-
-    const isMatch = await bcrypt.compare(loginDto.password, user.password);
+    const isMatch = bcrypt.compareSync(loginDto.password, user.password);
     if (!isMatch) {
       return this.responseService.Response({
         success: false,
@@ -57,7 +57,7 @@ export class AuthService {
           ),
         });
       }
-      return this.loginSuccess(user);
+      return await this.loginSuccess(user);
     } catch (error) {
       return this.responseService.Response({
         success: false,
@@ -70,12 +70,11 @@ export class AuthService {
   async loginSuccess(user: any) {
     const { email, name, id, phone, status, role } = user;
     const payload = { email, name, id, phone, status, role: role };
-
     return this.responseService.Response({
       success: true,
       statusCode: 200,
       data: {
-        token: this.jwtService.sign(payload),
+        token: await this.jwtService.signAsync(payload),
       },
       message: this.i18nService.translate('response.LOGIN_SUCCESSFULLY'),
     });
@@ -88,5 +87,11 @@ export class AuthService {
       data: null,
       message: this.i18nService.translate('response.LOGOUT_SUCCESSFULLY'),
     });
+  }
+
+  async generatePassword(generateDto: GeneratePassword): Promise<string> {
+    const saltRounds = 5;
+    const hashedPassword = await bcrypt.hash(generateDto?.password, saltRounds);
+    return hashedPassword;
   }
 }

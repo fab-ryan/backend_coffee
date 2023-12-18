@@ -9,6 +9,7 @@ import { PassportModule } from '@nestjs/passport';
 import { UserService } from '@modules/user/user.service';
 import { PaginateHelper, ResponseService } from '@utils';
 import { LocalStrategy } from '@guards/local.auth.guard';
+import { JwtStrategy } from '@common/strategies/jwt-strategy';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { LocalStrategy } from '@guards/local.auth.guard';
     UserService,
     ResponseService,
     PaginateHelper,
-    LocalStrategy,
+    JwtStrategy,
   ],
   exports: [AuthService, PassportModule.register({ defaultStrategy: 'jwt' })],
 })

@@ -1,6 +1,6 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dto/create-auth.dto';
+import { GeneratePassword, LoginDto } from './dto/create-auth.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { LogoutDecorator } from '@decorators/logout.decorator';
 
@@ -17,5 +17,10 @@ export class AuthController {
   @Post('logout')
   logout() {
     return this.authService.logout();
+  }
+
+  @Post('generate-password')
+  generatePassword(@Body() generateDTO: GeneratePassword) {
+    return this.authService.generatePassword(generateDTO);
   }
 }

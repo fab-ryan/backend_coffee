@@ -13,3 +13,7 @@ export class LoginDto {
   @ApiProperty({ example: 'password' })
   password: string;
 }
+export class GeneratePassword {
+  @IsString()
+  password: string;
+}
