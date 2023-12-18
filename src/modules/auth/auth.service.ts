@@ -74,7 +74,7 @@ export class AuthService {
       success: true,
       statusCode: 200,
       data: {
-        token: await this.jwtService.signAsync(payload),
+        access_token: await this.jwtService.signAsync(payload),
       },
       message: this.i18nService.translate('response.LOGIN_SUCCESSFULLY'),
     });

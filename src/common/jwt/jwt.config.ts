@@ -6,6 +6,7 @@ export const jwtConfig: JwtModuleAsyncOptions = {
     secret: config().jwt_secret,
     signOptions: {
       expiresIn: config().jwt_expires_in,
+      algorithm: 'HS256',
     },
   }),
 };

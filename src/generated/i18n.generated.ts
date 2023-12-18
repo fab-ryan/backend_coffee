@@ -25,6 +25,8 @@ export type I18nTranslations = {
         "CATEGORY_DETAILS": string;
         "CATEGORY_UPDATE": string;
         "CATEGORY_NOT_FOUND": string;
+        "USER_UPDATED_SUCCESSFUL": string;
+        "USER_DELETED_SUCCESSFUL": string;
         "ROLE_NAME_EXIST": string;
     };
     "validation": {

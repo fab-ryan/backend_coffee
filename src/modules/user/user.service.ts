@@ -143,11 +143,58 @@ export class UserService {
     return `This action returns a #${id} user`;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    try {
+      const queryBuilder = this.userRepository.createQueryBuilder('users');
+      const user = await queryBuilder.where('users.id = "id', { id }).getOne();
+
+      if (!user) {
+        throw new NotFoundException(
+          this.i18n.translate('response.USER_NOT_FOUND', { lang: 'en' }),
+        );
+      }
+
+      await queryBuilder
+        .update(User)
+        .set(updateUserDto)
+        .where('id = :id', { id })
+        .execute();
+      const UserAfter = await this.userRepository.findOne({
+        where: { id },
+      });
+
+      return this.responseService.Response({
+        data: UserAfter,
+        message: this.i18n.t('response.USER_UPDATED_SUCCESSFUL'),
+        statusCode: 200,
+        success: true,
+      });
+    } catch (e) {
+      throw new NotFoundException(e.message);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    try {
+      const queryBuilder = this.userRepository.createQueryBuilder('users');
+
+      const user = await queryBuilder.where('users.id = :id', { id }).getOne();
+
+      if (!user) {
+        throw new NotFoundException(
+          this.i18n.translate('response.USER_NOT_FOUND', { lang: 'en' }),
+        );
+      }
+
+      await queryBuilder.softDelete().where('id = :id', { id }).execute();
+
+      return this.responseService.Response({
+        message: this.i18n.t('response.USER_DELETED_SUCCESSFUL'),
+        statusCode: 200,
+        success: true,
+      });
+    } catch (e) {
+      throw new NotFoundException(e.message);
+    }
   }
 }
