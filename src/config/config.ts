@@ -6,4 +6,5 @@ export default () => ({
   jwt_secret: process.env.JWT_SECRET,
   jwt_expires_in: process.env.JWT_EXPIRES_IN,
   type_schema: process.env.TYPE_SCHEMA || 'http',
+  jwt_encoding: process.env.JWT_ENCODING || 'none',
 });
