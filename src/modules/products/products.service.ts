@@ -162,12 +162,18 @@ export class ProductsService {
       const product = await this.productsRepository.findOne({
         where: { id },
       });
+
       if (!product) {
         return this.responseService.Response({
           message: 'Product not found',
         });
       }
-      await this.productsRepository.delete(product);
+      await this.productsRepository
+        .createQueryBuilder('products')
+        .softDelete()
+        .where('id = :id', { id })
+        .execute();
+
       return this.responseService.Response({
         message: 'Product deleted successfully',
       });

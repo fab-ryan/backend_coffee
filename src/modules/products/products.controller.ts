@@ -70,8 +70,32 @@ export class ProductsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productsService.update(id, updateProductDto);
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        {
+          name: 'image_portrait',
+          maxCount: 1,
+        },
+        {
+          name: 'image_landscape',
+          maxCount: 1,
+        },
+      ],
+      { storage },
+    ),
+  )
+  update(
+    @Param('id') id: string,
+    @Body() updateProductDto: UpdateProductDto,
+    @UploadedFiles()
+    files: {
+      image_portrait: Express.Multer.File;
+      image_landscape: Express.Multer.File;
+    },
+  ) {
+    return this.productsService.update(id, updateProductDto, files);
   }
 
   @Delete(':id')
