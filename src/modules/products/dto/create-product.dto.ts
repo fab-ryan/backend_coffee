@@ -28,7 +28,7 @@ export class CreateProductDto {
 
   @ApiProperty({ type: 'string', required: true, title: 'Product Category' })
   @IsString()
-  category: string;
+  category_id: string;
 
   @ApiProperty({
     type: 'string',
@@ -36,7 +36,7 @@ export class CreateProductDto {
     required: true,
     title: 'Product Landscape image',
   })
-  image_square: Express.Multer.File;
+  image_landscape: Express.Multer.File;
 
   @ApiProperty({
     type: 'string',
@@ -44,5 +44,11 @@ export class CreateProductDto {
     required: true,
     title: 'Product portaits image',
   })
+  image_portrait: Express.Multer.File;
+}
+
+export class FilesDto {
+  image_landscape: Express.Multer.File;
+
   image_portrait: Express.Multer.File;
 }
