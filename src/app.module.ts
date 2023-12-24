@@ -5,6 +5,7 @@ import { I18Module } from '@config/i18.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { ProductsModule } from './modules/products/products.module';
+import { PricesModule } from './modules/prices/prices.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ProductsModule } from './modules/products/products.module';
     AuthModule,
     CategoriesModule,
     ProductsModule,
+    PricesModule,
   ],
   controllers: [],
   providers: [],

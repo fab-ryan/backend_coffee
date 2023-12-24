@@ -3,3 +3,9 @@ export enum Role {
   USER = 'user',
   GUEST = 'client',
 }
+
+export enum Currency {
+  USD = 'USD',
+  EUR = 'EUR',
+  RWF = 'RWF',
+}

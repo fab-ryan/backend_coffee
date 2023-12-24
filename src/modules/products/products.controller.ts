@@ -10,6 +10,9 @@ import {
   UseInterceptors,
   Version,
   UploadedFiles,
+  Query,
+  DefaultValuePipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -19,7 +22,7 @@ import { Roles } from '@decorators/roles.decorator';
 import { Role } from '@enums/role.enum';
 import { AuthGuard } from '@guards/auth.guard';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { storage } from '@utils';
+import { AssociativeArray, storage } from '@utils';
 import { Express } from 'express';
 
 @Controller('products')
@@ -60,8 +63,14 @@ export class ProductsController {
   }
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  findAll(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
+    @Query() filters: AssociativeArray,
+  ) {
+    return this.productsService.findAll(filters);
   }
 
   @Get(':id')

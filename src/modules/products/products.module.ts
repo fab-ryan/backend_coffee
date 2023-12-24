@@ -1,7 +1,7 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
-import { ResponseService } from '@utils';
+import { PaginateHelper, ResponseService } from '@utils';
 import { AuthenticateMiddleware } from '@middlewares/authenticate.middleware';
 import { AccessContorlService } from '@shared/access-control.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -19,6 +19,8 @@ import { CategoriesModule } from '@modules/categories/categories.module';
     ResponseService,
     AuthenticateMiddleware,
     AccessContorlService,
+    PaginateHelper,
   ],
+  exports: [ProductsService],
 })
 export class ProductsModule {}
