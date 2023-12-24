@@ -162,4 +162,26 @@ export class CategoriesService {
       });
     }
   }
+
+  async findByCategory(category_id: string): Promise<Category> {
+    try {
+      const category = await this.categoryRepository.findOne({
+        where: { id: category_id },
+      });
+      if (!category) {
+        throw this.responseService.Response({
+          message: this.i18n.t('response.CATEGORY_NOT_FOUND'),
+          statusCode: 404,
+          success: false,
+        });
+      }
+      return category;
+    } catch (err) {
+      throw this.responseService.Response({
+        message: this.i18n.t('response.CATEGORY_NOT_FOUND'),
+        statusCode: err.statusCode,
+        success: false,
+      });
+    }
+  }
 }

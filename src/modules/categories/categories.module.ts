@@ -16,5 +16,6 @@ import { AccessContorlService } from '@shared/access-control.service';
     ResponseService,
     AccessContorlService,
   ],
+  exports: [CategoriesService],
 })
 export class CategoriesModule {}

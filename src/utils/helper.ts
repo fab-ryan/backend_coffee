@@ -1,7 +1,7 @@
 import { SelectQueryBuilder } from 'typeorm';
 import { isIn } from 'class-validator';
 import mutler, { diskStorage } from 'multer';
-
+import { extname } from 'path';
 export const formatUsername = (name: string) => {
   if (!name) return '';
   return name
@@ -64,38 +64,26 @@ export const genereteSlug = (name: string) => {
   return name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
 };
 
-const multerOptions = {
-  limits: {
-    fileSize: 1024 * 1024 * 5,
-  },
-  fileFilter: (req: any, file: any, cb: any) => {
-    if (file.mimetype.match(/\/(jpg|jpeg|png|gif)$/)) {
-      cb(null, true);
-    } else {
-      cb(new Error('Only image files are allowed!'), false);
-    }
-  },
-};
-
 const getFileName = (file: Express.Multer.File) => {
   const name = file.originalname.split('.')[0];
   const ext = file.originalname.split('.')[1];
   return `${name}-${Date.now()}.${ext}`;
 };
 
-const multerOptionsWithDest = (dest: string) => {
-  return {
-    ...multerOptions,
-    dest,
-    storage: diskStorage({
-      destination: (req, file, cb) => {
-        cb(null, dest);
-      },
-      filename: (req, file, cb) => {
-        cb(null, getFileName(file));
-      },
-    }),
-  };
-};
-
-// export const uploadImage = mutler(multerOptionsWithDest('uploads/images'));
+export const storage = diskStorage({
+  destination: (
+    req: Express.Request,
+    file: Express.Multer.File,
+    cb: (error: Error | null, destination: string) => void,
+  ) => {
+    if (file.size > 1024 * 1024 * 5) {
+      return cb(new Error('File is too large'), null);
+    } else if (!file.mimetype.match(/\/(jpg|jpeg|png|gif)$/)) {
+      return cb(new Error('Only image files are allowed!'), null);
+    }
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, getFileName(file));
+  },
+});

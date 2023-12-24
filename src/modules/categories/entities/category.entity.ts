@@ -5,7 +5,9 @@ import {
   PrimaryColumn,
   CreateDateColumn,
   DeleteDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Product } from '@modules/products/entities/product.entity';
 
 @Entity('categories')
 export class Category {
@@ -27,4 +29,7 @@ export class Category {
 
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
   deleted_at: Date;
+
+  @OneToMany(() => Product, (product) => product.category)
+  product: Product[];
 }
