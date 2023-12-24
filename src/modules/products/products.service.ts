@@ -4,7 +4,12 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
-import { ResponseService } from '@utils';
+import {
+  AssociativeArray,
+  PaginateHelper,
+  ResponseService,
+  filterQueryBuilderFromRequest,
+} from '@utils';
 import { CategoriesService } from '@modules/categories/categories.service';
 import path from 'path';
 import fs from 'fs';
@@ -15,6 +20,7 @@ export class ProductsService {
     private readonly productsRepository: Repository<Product>,
     private responseService: ResponseService,
     private readonly categoryService: CategoriesService,
+    private readonly productPaginate: PaginateHelper<Product>,
   ) {}
   async create(createProductDto: CreateProductDto, files: FilesDto) {
     const {
@@ -48,11 +54,14 @@ export class ProductsService {
     });
   }
 
-  async findAll() {
+  async findAll(filter?: AssociativeArray) {
     try {
-      const products = await this.productsRepository.find({
-        relations: ['category'],
-      });
+      const query = this.productsRepository
+        .createQueryBuilder('products')
+        .leftJoinAndSelect('products.category', 'category');
+      filterQueryBuilderFromRequest(query, filter);
+      const products = await this.productPaginate.run(query);
+
       return this.responseService.Response({
         data: products,
         statusCode: 200,
@@ -203,6 +212,26 @@ export class ProductsService {
       });
     } catch (error) {
       return this.responseService.Response({
+        message: error.message,
+        statusCode: error.status,
+        success: false,
+      });
+    }
+  }
+
+  async getProductById(id: string): Promise<Product> {
+    try {
+      const product = await this.productsRepository.findOne({
+        where: { id },
+      });
+      if (!product) {
+        throw this.responseService.Response({
+          message: 'Product not found',
+        });
+      }
+      return product;
+    } catch (error) {
+      throw this.responseService.Response({
         message: error.message,
         statusCode: error.status,
         success: false,

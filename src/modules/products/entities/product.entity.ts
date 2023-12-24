@@ -6,9 +6,11 @@ import {
   DeleteDateColumn,
   JoinColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { uuid } from '@utils';
 import { Category } from '@modules/categories/entities/category.entity';
+import { Price } from '@modules/prices/entities/price.entity';
 
 @Entity('products')
 export class Product {
@@ -52,4 +54,7 @@ export class Product {
   @ManyToOne(() => Category, (category) => category.product)
   @JoinColumn()
   category: Category;
+
+  @OneToMany(() => Price, (price) => price.product)
+  price: Price[];
 }
