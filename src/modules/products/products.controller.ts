@@ -20,10 +20,11 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { Roles } from '@decorators/roles.decorator';
 import { Role } from '@enums/role.enum';
-import { AuthGuard } from '@guards/auth.guard';
+import { AuthGuard, AuthUserType } from '@guards/auth.guard';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { AssociativeArray, storage } from '@utils';
 import { Express } from 'express';
+import { AuthUser } from '@decorators';
 
 @Controller('products')
 @ApiTags('Products')
@@ -64,13 +65,14 @@ export class ProductsController {
 
   @Get()
   findAll(
+    @AuthUser() user: AuthUserType,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
     @Query() filters: AssociativeArray,
   ) {
-    return this.productsService.findAll(filters);
+    return this.productsService.findAll(user.id, filters);
   }
 
   @Get(':id')

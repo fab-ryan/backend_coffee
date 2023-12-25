@@ -54,11 +54,13 @@ export class ProductsService {
     });
   }
 
-  async findAll(filter?: AssociativeArray) {
+  async findAll(userId: string, filter?: AssociativeArray) {
     try {
       const query = this.productsRepository
         .createQueryBuilder('products')
-        .leftJoinAndSelect('products.category', 'category');
+        .leftJoinAndSelect('products.category', 'category')
+        .leftJoinAndSelect('products.favorite', 'favorite')
+        .leftJoinAndSelect('products.price', 'price');
       filterQueryBuilderFromRequest(query, filter);
       const products = await this.productPaginate.run(query);
 
@@ -68,6 +70,7 @@ export class ProductsService {
         message: 'Products fetched successfully',
       });
     } catch (error) {
+      console.log(error);
       return this.responseService.Response({
         message: error.message,
         statusCode: error.status,

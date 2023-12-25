@@ -11,6 +11,7 @@ import {
 import { uuid } from '@utils';
 import { Category } from '@modules/categories/entities/category.entity';
 import { Price } from '@modules/prices/entities/price.entity';
+import { Favorite } from '@modules/favorites/entities/favorite.entity';
 
 @Entity('products')
 export class Product {
@@ -57,4 +58,8 @@ export class Product {
 
   @OneToMany(() => Price, (price) => price.product)
   price: Price[];
+
+  @OneToMany(() => Favorite, (favorite) => favorite.product)
+  @JoinColumn()
+  favorite: Favorite;
 }

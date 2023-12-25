@@ -4,10 +4,13 @@ import {
   Entity,
   CreateDateColumn,
   DeleteDateColumn,
+  ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { uuid } from '@utils';
 import { Role } from '@enums/role.enum';
 
+import { Favorite } from '@modules/favorites/entities/favorite.entity';
 @Entity('users')
 export class User {
   constructor() {
@@ -43,4 +46,7 @@ export class User {
 
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
   deleted_at: Date;
+
+  @OneToMany(() => Favorite, (favorite) => favorite.user)
+  favorite: Favorite[];
 }

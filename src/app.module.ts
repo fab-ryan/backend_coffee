@@ -6,6 +6,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { ProductsModule } from './modules/products/products.module';
 import { PricesModule } from './modules/prices/prices.module';
+import { FavoritesModule } from './modules/favorites/favorites.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { PricesModule } from './modules/prices/prices.module';
     CategoriesModule,
     ProductsModule,
     PricesModule,
+    FavoritesModule,
   ],
   controllers: [],
   providers: [],
