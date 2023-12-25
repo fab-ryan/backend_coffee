@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     await this.authMiddleware.use(request, null, () => {});
 
-    const user = request.user as User;
+    const user = request.user as AuthUserType;
     if (user.role === userRole) {
       return true;
     }
@@ -45,7 +45,7 @@ export class AuthGuard implements CanActivate {
   }
 }
 
-interface User {
+export interface AuthUserType {
   id: string;
   email: string;
   name: string;

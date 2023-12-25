@@ -159,9 +159,7 @@ export class UserService {
         .set(updateUserDto)
         .where('id = :id', { id })
         .execute();
-      const UserAfter = await this.userRepository.findOne({
-        where: { id },
-      });
+      const UserAfter = await this.getUserByEmailOrById(null, id);
 
       return this.responseService.Response({
         data: UserAfter,
@@ -193,6 +191,27 @@ export class UserService {
         statusCode: 200,
         success: true,
       });
+    } catch (e) {
+      throw new NotFoundException(e.message);
+    }
+  }
+
+  async getUserByEmailOrById(email?: string, user_id?: string): Promise<User> {
+    try {
+      const queryBuilder = this.userRepository.createQueryBuilder('users');
+
+      const user = await queryBuilder
+        .where('users.id = :id', { id: user_id })
+        .orWhere('users.email = :email', { email })
+        .getOne();
+
+      if (!user) {
+        throw new NotFoundException(
+          this.i18n.translate('response.USER_NOT_FOUND', { lang: 'en' }),
+        );
+      }
+
+      return user;
     } catch (e) {
       throw new NotFoundException(e.message);
     }

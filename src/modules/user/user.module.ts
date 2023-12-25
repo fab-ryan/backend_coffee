@@ -19,5 +19,6 @@ import { JwtStrategy } from '@common/strategies/jwt-strategy';
     AuthenticateMiddleware,
     JwtStrategy,
   ],
+  exports: [UserService],
 })
 export class UserModule {}
