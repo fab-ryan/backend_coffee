@@ -50,7 +50,9 @@ export class CategoriesService {
 
   async findAll() {
     try {
-      const categories = await this.categoryRepository.find();
+      const categories = await this.categoryRepository.find({
+        relations: ['products'],
+      });
       return this.responseService.Response({
         data: categories,
         statusCode: 200,

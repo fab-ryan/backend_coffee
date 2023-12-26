@@ -80,6 +80,11 @@ export class ProductsController {
     return this.productsService.findOne(id);
   }
 
+  @Get('category/:category_id')
+  findByCategory(@Param('category_id') category_id: string) {
+    return this.productsService.getProductByCategoryId(category_id);
+  }
+
   @Patch(':id')
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(
