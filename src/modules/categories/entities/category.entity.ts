@@ -31,5 +31,5 @@ export class Category {
   deleted_at: Date;
 
   @OneToMany(() => Product, (product) => product.category)
-  product: Product[];
+  products: Product[];
 }

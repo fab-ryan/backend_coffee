@@ -52,7 +52,7 @@ export class Product {
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
   deleted_at: Date;
 
-  @ManyToOne(() => Category, (category) => category.product)
+  @ManyToOne(() => Category, (category) => category.products)
   @JoinColumn()
   category: Category;
 
