@@ -32,14 +32,13 @@ export class User {
   @Column({ nullable: false })
   phone: string;
 
-  @Column({ nullable: false })
-  password: string;
-
+  @Column({ nullable: false, default: Role.USER })
+  role: string;
   @Column({ nullable: false, default: true })
   status: boolean;
 
-  @Column({ nullable: false, default: Role.USER })
-  role: string;
+  @Column({ nullable: false })
+  password: string;
 
   @CreateDateColumn({ type: 'timestamp', nullable: false })
   created_at: Date;

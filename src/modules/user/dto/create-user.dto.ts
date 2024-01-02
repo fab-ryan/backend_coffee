@@ -1,11 +1,5 @@
 import { IsRwandanPhoneNumber, parseToRwandanNumber } from '@common';
-import {
-  IsString,
-  IsNotEmpty,
-  IsEmail,
-  IsOptional,
-  IsBoolean,
-} from 'class-validator';
+import { IsString, IsNotEmpty, IsEmail, IsOptional } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
 import { i18nValidationMessage } from 'nestjs-i18n';
@@ -56,20 +50,4 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   password: string;
-
-  @ApiProperty({
-    example: 'true',
-    description: 'The status of the User',
-  })
-  @IsBoolean()
-  @IsOptional()
-  status: boolean;
-
-  @ApiProperty({
-    name: 'role',
-    example: 'USER',
-  })
-  @IsString()
-  @IsNotEmpty()
-  role: string;
 }

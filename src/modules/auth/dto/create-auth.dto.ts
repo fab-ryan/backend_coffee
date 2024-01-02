@@ -17,3 +17,12 @@ export class GeneratePassword {
   @IsString()
   password: string;
 }
+
+export interface GenerateToken {
+  email: string;
+  name: string;
+  id: string;
+  phone: string;
+  status: boolean;
+  role: string;
+}

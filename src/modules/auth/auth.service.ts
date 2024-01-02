@@ -7,6 +7,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { I18nService } from 'nestjs-i18n';
 import { I18nTranslations } from '@generated/i18n.generated';
+import { GenerateTokenService } from '@shared/generate-token-control.service';
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,7 @@ export class AuthService {
     private userService: UserService,
     private jwtService: JwtService,
     private readonly i18nService: I18nService<I18nTranslations>,
+    private readonly generateTokenService: GenerateTokenService,
   ) {}
 
   async validateUser(loginDto: LoginDto) {
@@ -74,7 +76,7 @@ export class AuthService {
       success: true,
       statusCode: 200,
       data: {
-        access_token: await this.jwtService.signAsync(payload),
+        access_token: await this.generateTokenService.generateToken(payload),
       },
       message: this.i18nService.translate('response.LOGIN_SUCCESSFULLY'),
     });
