@@ -8,7 +8,9 @@ import { JwtService } from '@nestjs/jwt';
 import { I18nService } from 'nestjs-i18n';
 import { I18nTranslations } from '@generated/i18n.generated';
 import { GenerateTokenService } from '@shared/generate-token-control.service';
+
 import { User } from '@modules/user/entities/user.entity';
+
 
 @Injectable()
 export class AuthService {
@@ -18,7 +20,7 @@ export class AuthService {
     private jwtService: JwtService,
     private readonly i18nService: I18nService<I18nTranslations>,
     private readonly generateTokenService: GenerateTokenService,
-  ) {}
+  ) { }
 
   async validateUser(loginDto: LoginDto): Promise<User> {
     const user = await this.userService.findUserByEmail(loginDto.email);
