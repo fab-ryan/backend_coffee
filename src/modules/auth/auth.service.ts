@@ -8,6 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { I18nService } from 'nestjs-i18n';
 import { I18nTranslations } from '@generated/i18n.generated';
 import { GenerateTokenService } from '@shared/generate-token-control.service';
+import { User } from '@modules/user/entities/user.entity';
 
 import { User } from '@modules/user/entities/user.entity';
 
