@@ -10,6 +10,8 @@ import { UserService } from '@modules/user/user.service';
 import { PaginateHelper, ResponseService } from '@utils';
 import { LocalStrategy } from '@guards/local.auth.guard';
 import { GenerateTokenService } from '@shared/generate-token-control.service';
+import { AuthenticateMiddleware } from '@middlewares/authenticate.middleware';
+import { AccessContorlService } from '@shared/access-control.service';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { GenerateTokenService } from '@shared/generate-token-control.service';
     PaginateHelper,
     LocalStrategy,
     GenerateTokenService,
+    AuthenticateMiddleware,
+    AccessContorlService,
   ],
   exports: [AuthService, PassportModule.register({ defaultStrategy: 'jwt' })],
 })
