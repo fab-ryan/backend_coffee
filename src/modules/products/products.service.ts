@@ -222,6 +222,25 @@ export class ProductsService {
     }
   }
 
+  async getProductByCategoryId(category_id: string) {
+    try {
+      const products = await this.productsRepository.find({
+        where: { category: { id: category_id } },
+      });
+      return this.responseService.Response({
+        data: products,
+        statusCode: 200,
+        message: 'Products fetched successfully',
+      });
+    } catch (error) {
+      throw this.responseService.Response({
+        message: error.message,
+        statusCode: error.status,
+        success: false,
+      });
+    }
+  }
+
   async getProductById(id: string): Promise<Product> {
     try {
       const product = await this.productsRepository.findOne({

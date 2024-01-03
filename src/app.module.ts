@@ -8,6 +8,8 @@ import { ProductsModule } from './modules/products/products.module';
 import { PricesModule } from './modules/prices/prices.module';
 import { FavoritesModule } from './modules/favorites/favorites.module';
 
+import { SearchModule } from '@modules/search/search.module';
+
 @Module({
   imports: [
     DatabaseModule,
@@ -18,6 +20,7 @@ import { FavoritesModule } from './modules/favorites/favorites.module';
     ProductsModule,
     PricesModule,
     FavoritesModule,
+    SearchModule,
   ],
   controllers: [],
   providers: [],

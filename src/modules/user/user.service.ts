@@ -21,6 +21,7 @@ import { I18nTranslations } from '@generated/i18n.generated';
 import * as bcrypt from 'bcrypt';
 
 import config from '@config/config';
+import { GenerateTokenService } from '@shared/generate-token-control.service';
 @Injectable()
 export class UserService {
   constructor(
@@ -29,6 +30,7 @@ export class UserService {
     private readonly responseService: ResponseService,
     private readonly i18n: I18nService<I18nTranslations>,
     private readonly userPaginate: PaginateHelper<User>,
+    private readonly generateTokenService: GenerateTokenService,
   ) {}
 
   async create(createUserDto: CreateUserDto, lang: string) {
@@ -77,10 +79,21 @@ export class UserService {
       });
       const result = await this.userRepository.save(user);
       result.password;
+      const payload = {
+        email: user.email,
+        name: user.name,
+        id: user.id,
+        phone: user.phone,
+        status: user.status,
+        role: user.role,
+      };
+
       return this.responseService.Response({
         success: true,
         statusCode: 201,
-        data: result,
+        data: {
+          access_token: await this.generateTokenService.generateToken(payload),
+        },
         message: this.i18n.translate('response.USER_CREATED', { lang }),
       });
     } catch (error) {
