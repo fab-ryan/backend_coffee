@@ -28,6 +28,15 @@ export type I18nTranslations = {
         "USER_UPDATED_SUCCESSFUL": string;
         "USER_DELETED_SUCCESSFUL": string;
         "USER_FOUND": string;
+        "CART_CREATED": string;
+        "CART_NOT_FOUND": string;
+        "CART_UPDATED": string;
+        "CART_DELETED": string;
+        "CART_LIST": string;
+        "CART_DETAILS": string;
+        "CART_UPDATE": string;
+        "CART_DELETE": string;
+        "PRODUCT_QUANTITY_NOT_ENOUGH": string;
         "ROLE_NAME_EXIST": string;
     };
     "validation": {
@@ -36,6 +45,11 @@ export type I18nTranslations = {
         "IS_STRING": string;
         "ROLE_NAME": string;
         "ROLE_NAME_EXIST": string;
+        "CART": {
+            "CART_QUANTITY_NOT_VALID": string;
+            "CART_QUANTITY_NOT_POSITIVE": string;
+            "CART_PRODUCT_ID_NOT_VALID": string;
+        };
     };
 };
 export type I18nPath = Path<I18nTranslations>;

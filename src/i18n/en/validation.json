@@ -3,5 +3,10 @@
   "IS_EMAIL": "email should be a valid email address",
   "IS_STRING": "field should be a string",
   "ROLE_NAME": "role name should be a string",
-  "ROLE_NAME_EXIST": "this role {name} is already exist"
+  "ROLE_NAME_EXIST": "this role {name} is already exist",
+  "CART": {
+    "CART_QUANTITY_NOT_VALID": "cart quantity should be a number",
+    "CART_QUANTITY_NOT_POSITIVE": "cart quantity should be a positive number",
+    "CART_PRODUCT_ID_NOT_VALID": "Product id should be there "
+  }
 }

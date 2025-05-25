@@ -2,5 +2,10 @@
   "IS_NOT_EMPTY": "Feild should not be empty",
   "IS_EMAIL": "Email should be a valid email address",
   "IS_STRING": "Field should be a string",
-  "ROLE_NAME": "role name should be a string"
+  "ROLE_NAME": "role name should be a string",
+  "CART": {
+    "CART_QUANTITY_NOT_VALID": "cart quantity should be a number",
+    "CART_QUANTITY_NOT_POSITIVE": "cart quantity should be a positive number",
+    "CART_PRODUCT_ID_NOT_VALID": "Product id should be there "
+  }
 }

@@ -2,5 +2,10 @@
   "IS_NOT_EMPTY": "Feild ntigomba kuba ari ubusa",
   "IS_EMAIL": "Email igomba kuba ari formatted neza",
   "IS_STRING": "Feild igomba kuba ari ijambo",
-  "ROLE_NAME": "role name should be a string"
+  "ROLE_NAME": "role name should be a string",
+  "CART": {
+    "CART_QUANTITY_NOT_VALID": "cart quantity should be a number",
+    "CART_QUANTITY_NOT_POSITIVE": "cart quantity should be a positive number",
+    "CART_PRODUCT_ID_NOT_VALID": "Product id should be there "
+  }
 }

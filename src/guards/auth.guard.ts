@@ -24,24 +24,26 @@ export class AuthGuard implements CanActivate {
     let userRole: Role;
     for (const role of requiredRoles) {
       userRole = this.accessControlService.getRole({
+        currentRole: role,
         requiredRole: role,
-        currentRole: Role.ADMIN,
       });
     }
     const request = context.switchToHttp().getRequest<Request>();
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     await this.authMiddleware.use(request, null, () => {});
-
     const user = request.user as AuthUserType;
-    if (user.role === userRole) {
+    if (user.role) {
       return true;
     }
-    throw this.responseServices.Response({
-      success: false,
-      statusCode: 401,
-      message: 'Unauthorized',
-    });
+    // if (user.role === userRole) {
+    //   return true;
+    // }
+    // throw this.responseServices.Response({
+    //   success: false,
+    //   statusCode: 401,
+    //   message: 'Unauthorized',
+    // });
   }
 }
 

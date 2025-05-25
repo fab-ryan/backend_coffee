@@ -9,7 +9,8 @@ import { PricesModule } from './modules/prices/prices.module';
 import { FavoritesModule } from './modules/favorites/favorites.module';
 
 import { SearchModule } from '@modules/search/search.module';
-
+import { CartsModule } from './modules/carts/carts.module';
+import { SharedModule } from '@shared/shared.module';
 @Module({
   imports: [
     DatabaseModule,
@@ -21,8 +22,10 @@ import { SearchModule } from '@modules/search/search.module';
     PricesModule,
     FavoritesModule,
     SearchModule,
+    CartsModule,
+    SharedModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

@@ -7,7 +7,7 @@ export class SearchService {
   constructor(
     private readonly entityManager: EntityManager,
     private readonly responseService: ResponseService,
-  ) {}
+  ) { }
   async search(query: string): Promise<any> {
     try {
       if (!query) {
@@ -15,17 +15,20 @@ export class SearchService {
           message: 'Please provide a keyword for the search.',
         });
       }
-      const results = await this.entityManager.query(
+      const resultsProducts = await this.entityManager.query(
         `
-        SELECT *
-        FROM (
-          SELECT 'products' as type, p.* FROM product p WHERE p.name ILIKE :keyword
-          UNION
-          SELECT 'category' as type, c.* FROM category c WHERE c.name ILIKE :keyword
-        ) as combined
-        ORDER BY type, name;`,
+        SELECT * FROM products WHERE name ILIKE $1 OR roasted ILIKE $1 OR description ILIKE $1
+        `,
         [`%${query}%`],
       );
+
+      const resultsCategories = await this.entityManager.query(
+        `
+        SELECT * FROM categories WHERE name ILIKE $1 OR description ILIKE $1
+        `,
+        [`%${query}%`],
+      );
+      const results = [...resultsProducts, ...resultsCategories];
       return this.responseService.Response({
         message: 'Search results',
         data: results,
