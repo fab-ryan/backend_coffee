@@ -13,8 +13,6 @@ import { GenerateTokenService } from '@shared/generate-token-control.service';
 import { AuthenticateMiddleware } from '@middlewares/authenticate.middleware';
 import { AccessContorlService } from '@shared/access-control.service';
 
-import { AuthenticateMiddleware } from '@middlewares/authenticate.middleware';
-import { AccessContorlService } from '@shared/access-control.service';
 
 
 @Module({

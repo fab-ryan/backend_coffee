@@ -10,7 +10,6 @@ import { I18nTranslations } from '@generated/i18n.generated';
 import { GenerateTokenService } from '@shared/generate-token-control.service';
 import { User } from '@modules/user/entities/user.entity';
 
-import { User } from '@modules/user/entities/user.entity';
 
 
 @Injectable()
