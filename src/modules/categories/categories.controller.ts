@@ -28,11 +28,11 @@ import { AuthGuard } from '@guards/auth.guard';
 @Controller('categories')
 @ApiTags('Categories')
 @ApiBearerAuth()
-@Roles(Role.ADMIN)
-@UseGuards(AuthGuard)
 export class CategoriesController {
   constructor(private readonly cotegoriesService: CategoriesService) {}
 
+  @Roles(Role.ADMIN)
+  @UseGuards(AuthGuard)
   @ApiResponse({
     status: 201,
     description: 'The record has been successfully created.',
@@ -42,7 +42,8 @@ export class CategoriesController {
   create(@Body() createCotegoryDto: CreateCategoryDto) {
     return this.cotegoriesService.createCategory(createCotegoryDto);
   }
-
+  @Roles(Role.ADMIN)
+  @UseGuards(AuthGuard)
   @ApiResponse({
     status: 200,
     description: 'The found record',
@@ -53,6 +54,8 @@ export class CategoriesController {
     return this.cotegoriesService.findAll();
   }
 
+  @Roles(Role.ADMIN, Role.USER)
+  @UseGuards(AuthGuard)
   @ApiResponse({
     status: 200,
     description: 'The found record',
@@ -62,7 +65,8 @@ export class CategoriesController {
   findOne(@Param('id') id: string) {
     return this.cotegoriesService.findOne(id);
   }
-
+  @Roles(Role.ADMIN)
+  @UseGuards(AuthGuard)
   @ApiResponse({
     status: 200,
     description: 'The found record',
@@ -76,6 +80,8 @@ export class CategoriesController {
     return this.cotegoriesService.update(id, updateCotegoryDto);
   }
 
+  @Roles(Role.ADMIN)
+  @UseGuards(AuthGuard)
   @ApiResponse({
     status: 200,
     description: 'The found record',

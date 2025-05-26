@@ -52,6 +52,15 @@ async function bootstrap() {
       scheme: 'bearer',
       bearerFormat: 'JWT',
     })
+    .addGlobalParameters({
+      in: 'header',
+      name: 'x-lang',
+      required: false,
+      schema: {
+        type: 'string',
+        default: 'kiny',
+      },
+    })
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);

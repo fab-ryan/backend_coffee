@@ -28,7 +28,7 @@ export class AuthController {
   }
 
   @ApiBearerAuth()
-  @Roles(Role.ADMIN, Role.GUEST, Role.USER)
+  @Roles(Role.GUEST, Role.USER, Role.ADMIN)
   @UseGuards(AuthGuard)
   @Get('user-info')
   authUser(@AuthUser() user: AuthUserType) {

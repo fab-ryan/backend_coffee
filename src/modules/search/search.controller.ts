@@ -11,10 +11,11 @@ import { AuthGuard } from '@guards/auth.guard';
 @UseGuards(AuthGuard)
 @ApiTags('Search')
 export class SearchController {
-  constructor(private readonly searchService: SearchService) {}
+  constructor(private readonly searchService: SearchService) { }
 
   @Get(':query')
   search(@Param('query') query: string) {
+
     return this.searchService.search(query);
   }
 }

@@ -13,6 +13,8 @@ import { GenerateTokenService } from '@shared/generate-token-control.service';
 import { AuthenticateMiddleware } from '@middlewares/authenticate.middleware';
 import { AccessContorlService } from '@shared/access-control.service';
 
+
+
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
@@ -29,7 +31,8 @@ import { AccessContorlService } from '@shared/access-control.service';
     GenerateTokenService,
     AuthenticateMiddleware,
     AccessContorlService,
+
   ],
   exports: [AuthService, PassportModule.register({ defaultStrategy: 'jwt' })],
 })
-export class AuthModule {}
+export class AuthModule { }

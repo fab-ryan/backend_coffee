@@ -12,14 +12,14 @@ export class AccessContorlService {
   private priority = 1;
 
   constructor() {
-    this.buildRoles([Role.GUEST, Role.USER, Role.ADMIN]);
     this.buildRoles([Role.ADMIN]);
+    this.buildRoles([Role.GUEST, Role.USER, Role.ADMIN]);
   }
 
   /**
    * The buildRoles method allows for creating a role hierarchy between specified set of roles.
-   * Roles have to be specified from least privileged user to the most priviliged one
-   * @param roles Array that contains list of roles
+   * Roles have to be specified from least privileged user to the most privileged one
+   * @param roles Array that contains a list of roles
    */
   private buildRoles(roles: Role[]) {
     const hierarchy: Map<string, number> = new Map();
@@ -35,7 +35,11 @@ export class AccessContorlService {
       const priority = hierarchy.get(currentRole);
       const requiredPriority = hierarchy.get(requiredRole);
 
-      if (priority && requiredPriority && priority <= requiredPriority) {
+      if (
+        priority !== undefined &&
+        requiredPriority !== undefined &&
+        priority <= requiredPriority
+      ) {
         return true;
       }
     }
@@ -47,7 +51,11 @@ export class AccessContorlService {
       const priority = hierarchy.get(currentRole);
       const requiredPriority = hierarchy.get(requiredRole);
 
-      if (priority && requiredPriority && priority <= requiredPriority) {
+      if (
+        priority !== undefined &&
+        requiredPriority !== undefined &&
+        priority <= requiredPriority
+      ) {
         return requiredRole;
       }
     }
